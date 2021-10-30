@@ -42,3 +42,35 @@ retEmployees: async function () {
     return results;
 },
 
+addDept: async function (name) {
+    const db = await preB;
+    await db.execute('INSERT INTO department (name) VALUES (?);', [name]);
+    console.log("Department Added!");
+},
+
+addRole: async function (title, salary, department_id) {
+    const db = await preB;
+    const sql = `INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?);`;
+    await db.execute(sql, [title, salary, department_id])
+    console.log("Role Added!");
+    
+},
+
+addEmployee: async function (first_name, last_name, role_id, manager_id) {
+    const db = await preB;
+    const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?);`;
+    await db.execute(sql, [first_name, last_name, role_id, manager_id]);
+    console.log("Employee Added!");
+    
+},
+
+updateEmployee: async function (id, role_id) {
+    const db = await preB;
+    const sql = `UPDATE employee SET role_id=? WHERE id = ?;`;
+    await db.execute(sql, [role_id, id]);
+    console.log("Employee Updated!");
+},
+
+}  
+
+module.exports = queries
